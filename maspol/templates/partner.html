@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Партнёры</title>
+    <style>
+        .partner-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 100%;
+            max-width: 600px;
+        }
+        .partner-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .partner-info {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .phone {
+            color: #007bff;
+        }
+        .rating {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Список партнёров</h1>
+
+    {% for partner in partners %}
+        <div class="partner-card">
+            <div class="partner-header">
+                <span>{{ partner.partner_type.name }} | {{ partner.name }}</span>
+                <span>10%</span> <!-- Можно заменить на динамическое значение -->
+            </div>
+            <div class="partner-info">
+                <p>Директор: {{ partner.director }}</p>
+                <p class="phone">+{{ partner.phone|slice:"1:" }}</p> <!-- Убираем первый символ '+' если он есть -->
+                <p class="rating">Рейтинг: {{ partner.rating }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p>Нет данных о партнёрах.</p>
+    {% endfor %}
+</body>
+</html>
