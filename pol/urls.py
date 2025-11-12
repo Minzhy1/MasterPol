@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from maspol.views import partner_list
+from maspol.views import partner_list, add_partner
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', partner_list, name='partner_list'),
+    path('add/', add_partner, name='add_partner'),
 ]

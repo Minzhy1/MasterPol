@@ -1,53 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Партнёры</title>
-    <style>
-        .partner-card {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            width: 100%;
-            max-width: 600px;
-        }
-        .partner-header {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .partner-info {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .phone {
-            color: #007bff;
-        }
-        .rating {
-            color: #28a745;
-        }
-    </style>
 </head>
-<body>
-    <h1>Список партнёров</h1>
+<body style = "font-family: Segoe UI; margin: 0; padding: 0;">
+<div style = "display: flex; background: #f5ebd7; padding: 12px 20px; align-items: center;">
+    <div style = "display: flex; align-items: center; gap: 10px;">
+        <div><img src="{% static 'log.png' %}"  style="width: 50px; height: 50px;"></div>
+        <div style = "font-size: 20px; font-weight: bold; line-height: 1.3; color: #5a4a3f;">Мастер<br>Пол</div>
+    </div>
+    <a href="" style = "padding: 8px 16px; background: #67BA80; text-decoration: none; border-radius: 20px;
+            font-weight: bold; font-size: 16px; margin-left: auto;">Расчет материалов</a>
+</div>
+<h1 style = "text-align: center; max-width: 50%;">Партнёры</h1>
+<div style="max-width: 50%; padding: 20px;">
+{% for partner in partners %}
+<div style="background: #f5ebd7; padding: 15px; margin-bottom: 15px; display: flex">
+    <div style="flex: 1">
+        <div><strong>{{ partner.partner_type.name }} | {{ partner.name }}</strong></div>
+        <div>Директор: {{ partner.director }}</div>
+        <div>Телефон: +7 {{ partner.phone }}</div>
+        <div>Email: {{ partner.email }}</div>
+    </div>
+    <div>
+        <div style="font-weight: bold; color: #c76b1f; font-size: 18px;">10%</div>
+        <a href="#" style="color: #67BA80; text-decoration: none">История</a>
+    </div>
+</div>
+{% endfor %}
+</div>
+<a href="{% url 'add_partner' %}" style="background: #67BA80;display: block; width: 110px; padding: 10px;
+ margin: 0 auto;text-align: center; text-decoration: none;color: #000; border-radius: 20px;
+  font-weight: bold;">Добавить</a>
 
-    {% for partner in partners %}
-        <div class="partner-card">
-            <div class="partner-header">
-                <span>{{ partner.partner_type.name }} | {{ partner.name }}</span>
-                <span>10%</span> <!-- Можно заменить на динамическое значение -->
-            </div>
-            <div class="partner-info">
-                <p>Директор: {{ partner.director }}</p>
-                <p class="phone">+{{ partner.phone|slice:"1:" }}</p> <!-- Убираем первый символ '+' если он есть -->
-                <p class="rating">Рейтинг: {{ partner.rating }}</p>
-            </div>
-        </div>
-    {% empty %}
-        <p>Нет данных о партнёрах.</p>
-    {% endfor %}
 </body>
 </html>

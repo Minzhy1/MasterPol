@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить партнёра</title>
+    <style>
+        .form-field {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f5ebd7;
+            border: 1px solid #e0d0b5;
+            border-radius: 8px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body style="font-family: Segoe UI; margin: 0; padding: 0;">
+<div style = "display: flex; background: #f5ebd7; padding: 12px 20px; align-items: center;">
+    <div style = "display: flex; align-items: center; gap: 10px;">
+        <div><img src="{% static 'log.png' %}"  style="width: 50px; height: 50px;"></div>
+        <div style = "font-size: 20px; font-weight: bold; line-height: 1.3; color: #5a4a3f;">Мастер<br>Пол</div>
+    </div>
+    <a href="/" style = "padding: 8px 16px; background: #67BA80; text-decoration: none; border-radius: 20px;
+            font-weight: bold; font-size: 16px; margin-left: auto;">На главную</a>
+</div>
+<div class="form-container" style="max-width: 800px; margin: 50px auto;">
+    <h2 style="text-align: center">Добавить партнёра</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-field">
+            <input type="text" name="name" placeholder="Наименование" required>
+        </div>
+
+        <div class="form-field">
+            <select name="partner_type" required>
+                <option value="">Тип ▾</option>
+                {% for pt in partner_types %}
+                    <option value="{{ pt.id }}">{{ pt.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-field">
+            <input type="number" name="rating" placeholder="Рейтинг" min="0" max="10" required>
+        </div>
+
+        <div class="form-field">
+            <input type="text" name="address" placeholder="Адресс" required>
+        </div>
+
+        <div class="form-field">
+            <input type="text" name="director" placeholder="ФИО директора" required>
+        </div>
+
+        <div class="form-field">
+            <input type="tel" name="phone" placeholder="Телефон" required>
+        </div>
+
+        <div class="form-field">
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+
+        <a href="" style="background: #67BA80;display: block; width: 110px; padding: 10px;
+                margin: 0 auto;text-align: center; text-decoration: none;color: #000; border-radius: 20px;
+                font-weight: bold;">Сохранить</a>
+    </form>
+</div>
+
+</body>
+</html>
