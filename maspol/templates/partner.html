@@ -23,10 +23,18 @@
         <div>Директор: {{ partner.director }}</div>
         <div>Телефон: +7 {{ partner.phone }}</div>
         <div>Email: {{ partner.email }}</div>
+        <div>Адрес: {{ partner.legal_address.index }},
+            {{ partner.legal_address.region.name }},
+            {{ partner.legal_address.city.name }},
+            {{ partner.legal_address.street.name }},
+            д. {{ partner.legal_address.dom }}
+        </div>
     </div>
-    <div>
-        <div style="font-weight: bold; color: #c76b1f; font-size: 18px;">10%</div>
-        <a href="#" style="color: #67BA80; text-decoration: none">История</a>
+    <div style="text-align: right; white-space: nowrap;">
+        <div style="font-weight: bold; color: #c76b1f; font-size: 18px; margin-bottom: 8px;">10%</div>
+        <a href="{% url 'partner_history' partner.id %}" style="color: #67BA80; text-decoration: none; display: block; margin-bottom: 6px;">История</a>
+        <a href="{% url 'edit_partner' partner.id %}"
+           style="color: #67BA80; text-decoration: none; display: block;">Редактировать</a>
     </div>
 </div>
 {% endfor %}

@@ -3,7 +3,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Добавить партнёра</title>
+    <title>{% if partner %}Редактировать{% else %}Добавить{% endif %} партнёра</title>
     <style>
         .form-field {
             margin-bottom: 15px;
@@ -21,56 +21,114 @@
         }
     </style>
 </head>
-<body style="font-family: Segoe UI; margin: 0; padding: 0;">
-<div style = "display: flex; background: #f5ebd7; padding: 12px 20px; align-items: center;">
-    <div style = "display: flex; align-items: center; gap: 10px;">
-        <div><img src="{% static 'log.png' %}"  style="width: 50px; height: 50px;"></div>
-        <div style = "font-size: 20px; font-weight: bold; line-height: 1.3; color: #5a4a3f;">Мастер<br>Пол</div>
+<body style="font-family: Segoe UI; margin: 0; padding: 0; background: #ffffff;">
+
+<div style="display: flex; background: #f5ebd7; padding: 12px 20px; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="{% static 'log.png' %}" style="width: 50px; height: 50px;">
+        <div style="font-size: 20px; font-weight: bold; line-height: 1.3; color: #5a4a3f;">Мастер<br>Пол</div>
     </div>
-    <a href="/" style = "padding: 8px 16px; background: #67BA80; text-decoration: none; border-radius: 20px;
+    <a href="/" style="padding: 8px 16px; background: #67BA80; text-decoration: none; border-radius: 20px;
             font-weight: bold; font-size: 16px; margin-left: auto;">На главную</a>
 </div>
+
 <div class="form-container" style="max-width: 800px; margin: 50px auto;">
-    <h2 style="text-align: center">Добавить партнёра</h2>
+    <h2 style="text-align: center;">
+        {% if partner %}Редактировать{% else %}Добавить{% endif %} партнёра
+    </h2>
 
     <form method="post">
         {% csrf_token %}
+
         <div class="form-field">
-            <input type="text" name="name" placeholder="Наименование" required>
+            <input type="text" name="name" placeholder="Наименование"
+                   value="{{ partner.name|default:'' }}" required>
         </div>
 
         <div class="form-field">
             <select name="partner_type" required>
                 <option value="">Тип ▾</option>
                 {% for pt in partner_types %}
-                    <option value="{{ pt.id }}">{{ pt.name }}</option>
+                    <option value="{{ pt.id }}"
+                        {% if partner and partner.partner_type_id == pt.id %}selected{% endif %}>
+                        {{ pt.name }}
+                    </option>
                 {% endfor %}
             </select>
         </div>
 
         <div class="form-field">
-            <input type="number" name="rating" placeholder="Рейтинг" min="0" max="10" required>
+            <input type="number" name="rating" placeholder="Рейтинг" min="0" max="10"
+                   value="{{ partner.rating|default:'' }}" required>
+        </div>
+
+        <!-- Адрес -->
+        <div class="form-field">
+            <input type="text" name="index" placeholder="Индекс"
+                   value="{{ partner.legal_address.index|default:'' }}" required>
         </div>
 
         <div class="form-field">
-            <input type="text" name="address" placeholder="Адресс" required>
+            <select name="region" required>
+                <option value="">Регион ▾</option>
+                {% for r in regions %}
+                    <option value="{{ r.id }}"
+                        {% if partner and partner.legal_address.region_id == r.id %}selected{% endif %}>
+                        {{ r.name }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
 
         <div class="form-field">
-            <input type="text" name="director" placeholder="ФИО директора" required>
+            <select name="city" required>
+                <option value="">Город ▾</option>
+                {% for c in cities %}
+                    <option value="{{ c.id }}"
+                        {% if partner and partner.legal_address.city_id == c.id %}selected{% endif %}>
+                        {{ c.name }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
 
         <div class="form-field">
-            <input type="tel" name="phone" placeholder="Телефон" required>
+            <select name="street" required>
+                <option value="">Улица ▾</option>
+                {% for s in streets %}
+                    <option value="{{ s.id }}"
+                        {% if partner and partner.legal_address.street_id == s.id %}selected{% endif %}>
+                        {{ s.name }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
 
         <div class="form-field">
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="dom" placeholder="Дом"
+                   value="{{ partner.legal_address.dom|default:'' }}" required>
         </div>
 
-        <a href="" style="background: #67BA80;display: block; width: 110px; padding: 10px;
-                margin: 0 auto;text-align: center; text-decoration: none;color: #000; border-radius: 20px;
-                font-weight: bold;">Сохранить</a>
+        <div class="form-field">
+            <input type="text" name="director" placeholder="ФИО директора"
+                   value="{{ partner.director|default:'' }}" required>
+        </div>
+
+        <div class="form-field">
+            <input type="tel" name="phone" placeholder="Телефон"
+                   value="{{ partner.phone|default:'' }}" required>
+        </div>
+
+        <div class="form-field">
+            <input type="email" name="email" placeholder="Email"
+                   value="{{ partner.email|default:'' }}" required>
+        </div>
+
+        <button type="submit" style="background: #67BA80; display: block; width: 110px; padding: 10px;
+                margin: 0 auto; text-align: center; text-decoration: none; color: #000; border-radius: 20px;
+                font-weight: bold; border: none; cursor: pointer;">
+            {% if partner %}Сохранить{% else %}Добавить{% endif %}
+        </button>
     </form>
 </div>
 

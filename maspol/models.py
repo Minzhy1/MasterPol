@@ -33,6 +33,9 @@ class Address(models.Model):
 class PartnerType(models.Model):
     name = models.CharField(max_length=255, verbose_name="Тип партнера")
 
+    def __str__(self):
+        return self.name
+
 class Partner(models.Model):
     partner_type = models.ForeignKey(PartnerType, on_delete=models.CASCADE, verbose_name="Тип партнёра")
     name = models.CharField(verbose_name = "Наименование партнёра", max_length=200)
@@ -48,8 +51,6 @@ class Partner(models.Model):
 
 
 
-    def __str__(self):
-        return self.name
 
 # Модель для Типа продукции
 class ProductType(models.Model):
