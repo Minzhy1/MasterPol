@@ -13,15 +13,15 @@
         <div style = "font-size: 20px; font-weight: bold; line-height: 1.3; color: #5a4a3f;">Мастер<br>Пол</div>
     </div>
     <a href="/" style="padding: 8px 16px; background: #67BA80; text-decoration: none; border-radius: 20px;
-            font-weight: bold; font-size: 16px; margin-left: auto;">На главную</a>
-    <a href="" style = "padding: 8px 16px; background: #67BA80; text-decoration: none; border-radius: 20px;
+            font-weight: bold; font-size: 16px; margin-left: 1410px;">На главную</a>
+    <a href="{% url 'calculate' %}" style = "padding: 8px 16px; background: #67BA80; text-decoration: none; border-radius: 20px;
             font-weight: bold; font-size: 16px; margin-left: auto;">Расчет материалов</a>
 
 </div>
 
 <h2 style="text-align: center; margin-top: 30px; margin-bottom: 20px;">История</h2>
 
-<div style="font-size: 18px; font-weight: bold; margin-left: 20px; margin-bottom: 20px;">
+<div style="font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 20px;">
     {{ partner.partner_type.name }} | {{ partner.name }}
 </div>
 

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from maspol.views import partner_list, add_partner, partner_history
+from maspol.views import partner_list, add_partner, partner_history, calculate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('add/', add_partner, name='add_partner'),
     path('edit/<int:partner_id>/', add_partner, name='edit_partner'),
     path('history/<int:partner_id>/', partner_history, name='partner_history'),
+    path('calc/', calculate, name='calculate'),
 ]

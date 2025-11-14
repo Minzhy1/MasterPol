@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Расчет материалов</title>
+    <style>
+        input{ width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
+    </style>
+</head>
+<body style="font-family: Segoe UI; margin: 0; padding: 0; background: #ffffff;">
+<div style="display: flex; background: #f5ebd7; padding: 12px 20px; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="{% static 'log.png' %}" style="width: 50px; height: 50px;">
+        <div style="font-size: 20px; font-weight: bold; line-height: 1.3; color: #5a4a3f;">Мастер<br>Пол</div>
+    </div>
+    <a href="/" style="padding: 8px 16px; background: #67BA80; text-decoration: none; border-radius: 20px;
+            font-weight: bold; font-size: 16px; margin-left: auto;">На главную</a>
+</div>
+
+<div style="max-width: 600px;  margin:40px 600px ; background: #f5ebd7; padding: 20px; border-radius: 8px;">
+    <h2 style="text-align: center;">Расчет материалов</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="number" name="product_type_id" placeholder="ID типа продукции" required>
+        <input type="number" name="material_type_id" placeholder="ID типа материала" required>
+        <input type="number" name="product_count" placeholder="Количество продукции (целое)" required>
+        <input type="number" step="0.01" name="param1" placeholder="Параметр 1 (вещественное > 0)" required>
+        <input type="number" step="0.01" name="param2" placeholder="Параметр 2 (вещественное > 0)" required>
+        <button type="submit" style="background: #67BA80; color: white; width: 100%; margin: 8px 0; padding: 8px;
+         border: none; border-radius: 20px; font-weight: bold; cursor: pointer;">Рассчитать</button>
+    </form>
+
+    {% if result is not None %}
+        <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 5px; text-align: center; font-size: 18px;">
+            {% if result == -1 %}
+                Ошибка: неверные данные
+            {% else %}
+                Требуется материала: <strong>{{ result }}</strong>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

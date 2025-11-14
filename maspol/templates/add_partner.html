@@ -32,14 +32,13 @@
             font-weight: bold; font-size: 16px; margin-left: auto;">На главную</a>
 </div>
 
-<div class="form-container" style="max-width: 800px; margin: 50px auto;">
+<div style="max-width: 800px; margin: 50px auto;">
     <h2 style="text-align: center;">
         {% if partner %}Редактировать{% else %}Добавить{% endif %} партнёра
     </h2>
 
     <form method="post">
         {% csrf_token %}
-
         <div class="form-field">
             <input type="text" name="name" placeholder="Наименование"
                    value="{{ partner.name|default:'' }}" required>

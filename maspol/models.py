@@ -50,8 +50,6 @@ class Partner(models.Model):
         return self.name
 
 
-
-
 # Модель для Типа продукции
 class ProductType(models.Model):
     name = models.CharField(max_length=255, verbose_name="Тип продукции")
